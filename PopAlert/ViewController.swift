@@ -7,19 +7,31 @@
 //
 
 import UIKit
+import pop
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.backgroundColor = .white
+        
+        let presentButton = UIButton(type: UIButtonType.system)
+        presentButton.setTitle("Present PopAlert", for: UIControlState.normal)
+        presentButton.addTarget(self, action: #selector(presentPopAlert(_:)), for: UIControlEvents.touchUpInside)
+        view.addSubview(presentButton)
+        presentButton.sizeToFit()
+        presentButton.center = view.center
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @objc private func presentPopAlert(_ sender: UIButton) {
+        let titles = [
+            "What's new",
+            "Best selling",
+            "Highest rated",
+            "Price (Low to High)"
+        ]
+        
+        Alert.show(with: titles, from: self)
     }
-
-
+    
 }
-
